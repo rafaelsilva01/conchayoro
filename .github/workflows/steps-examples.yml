@@ -10,3 +10,5 @@ jobs:
     steps:
     - name: executa comando
       run: echo "Steps examples"
+    - name: Setup Node.js enviroment
+      uses: actions/setup-node@v4.0.2
