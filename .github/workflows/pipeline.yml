@@ -26,6 +26,7 @@ jobs:
         with:
           name: deploy
           path: index.html
-      - run: aws s3 cp index.html s3://conchayororss --acl public-read
+      - run: - run: aws s3 cp index.html s3://conchayororss --recursive --acl
+public-read
 
 
