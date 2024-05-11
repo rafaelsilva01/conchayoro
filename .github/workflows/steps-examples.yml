@@ -1,27 +1,30 @@
 name: steps examples
 
 on:
- push
-jobs:
- marketplace:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Example of use of marketplace
-      uses: actions/setup-node@v2
-      with:
-       node-version: '14'
-    - name: shows node version configured.
-      run: node --version
+  push
 
- hello_world_job:
-  runs-on: ubuntu-latest
-  name: Example of custom action
-  steps:
-   - name: Checkout Actions
-     uses: actions/checkout@v2
-   - id: step-caller
-     uses: "./.github/actions/hello"
-     with:
-      the-caller: 'Myself'
-   - run: echo random-number ${{ steps.step-caller.outputs.random-number }}
-     shell: bash
+jobs:
+  marketplace:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Show Node Version
+        run: node --version
+
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: Custom Action Example
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Run Custom Action
+        id: step-caller
+        uses: ./.github/actions/hello
+        with:
+          the-caller: 'Myself'
+      - name: Display Random Number
+        run: echo "Random Number: ${{ steps.step-caller.outputs.random-number }}"
+        shell: bash
